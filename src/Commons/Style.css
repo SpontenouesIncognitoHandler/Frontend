@@ -17,3 +17,19 @@
   background-repeat: no-repeat;
   background-size: auto, auto;
 }
+
+.home-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("./../Assets/HB2.png"), url("./../Assets/HB1.png");
+  background-position: left, right;
+  background-repeat: no-repeat;
+  background-size: auto, auto;
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    background-image: none;
+  }
+}
