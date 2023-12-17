@@ -1,0 +1,19 @@
+.signup-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("./../Assets/B2.png"), url("./../Assets/B1.png");
+  background-position: left, right;
+  background-repeat: no-repeat;
+  background-size: auto, auto;
+}
+
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("./../Assets/B2.png"), url("./../Assets/B1.png");
+  background-position: left, right;
+  background-repeat: no-repeat;
+  background-size: auto, auto;
+}

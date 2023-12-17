@@ -110,7 +110,7 @@ export default function Login() {
                   <Button
                     type="submit"
                     variant="contained"
-                    style={{ backgroundColor: "#193441", width: "50%" }}
+                    style={{ backgroundColor: "#f75733", width: "50%" }}
                   >
                     Continue
                   </Button>

@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
+import './../Commons/Style.css';
 
 export default function Signup() {
   const [fname, setFname] = useState("");
@@ -33,7 +34,7 @@ export default function Signup() {
   }
 
   return (
-    <div>
+    <div className="signup-container">
       <div style={{ padding: "2%" }}>
         <center>
           <Card
@@ -178,7 +179,7 @@ export default function Signup() {
                   <Button
                     type="submit"
                     variant="contained"
-                    style={{ backgroundColor: "#193441", width: "50%" }}
+                    style={{ backgroundColor: "#f75733", width: "50%" }}
                   >
                     Continue
                   </Button>
