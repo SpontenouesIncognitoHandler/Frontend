@@ -25,7 +25,7 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div className="login-container">
       <div style={{ padding: "2%" }}>
         <center>
           <Card
