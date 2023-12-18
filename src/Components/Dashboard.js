@@ -21,6 +21,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import CloseIcon from "@mui/icons-material/Close";
 import MemoryIcon from "@mui/icons-material/Memory";
 import StorageIcon from "@mui/icons-material/Storage";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -54,6 +55,43 @@ ChartJS.register(
 
 const Dashboard = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  const handleFullScreenClick = (chartId) => {
+    const chartElement = document.getElementById(chartId);
+
+    if (chartElement) {
+      if (!isFullScreen) {
+        if (chartElement.requestFullscreen) {
+          chartElement.requestFullscreen();
+        } else if (chartElement.mozRequestFullScreen) {
+          chartElement.mozRequestFullScreen();
+        } else if (chartElement.webkitRequestFullscreen) {
+          chartElement.webkitRequestFullscreen();
+        } else if (chartElement.msRequestFullscreen) {
+          chartElement.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+
+      setIsFullScreen(!isFullScreen);
+    }
+  };
+
+  const handleDownloadClick = (chartId) => {
+    const chartElement = document.getElementById(chartId);
+    if (chartElement) {
+    }
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -182,6 +220,7 @@ const Dashboard = () => {
                 boxShadow: "none",
                 border: "1px solid #f5f5f5",
               }}
+              id="incidents-chart"
             >
               <CardContent
                 style={{
@@ -195,11 +234,17 @@ const Dashboard = () => {
                   Incidents Logged
                 </Typography>
                 <div>
-                  <IconButton color="#f75733">
+                  <IconButton
+                    color="#f75733"
+                    onClick={() => handleDownloadClick("incidents-chart")}
+                  >
                     <DownloadIcon />
                   </IconButton>
-                  <IconButton color="#f75733">
-                    <FullscreenIcon />
+                  <IconButton
+                    color="#f75733"
+                    onClick={() => handleFullScreenClick("incidents-chart")}
+                  >
+                    {isFullScreen ? <CloseIcon /> : <FullscreenIcon />}
                   </IconButton>
                 </div>
               </CardContent>
@@ -215,6 +260,7 @@ const Dashboard = () => {
                   boxShadow: "none",
                   border: "1px solid #f5f5f5",
                 }}
+                id="logtype-chart"
               >
                 <CardContent
                   style={{
@@ -228,11 +274,17 @@ const Dashboard = () => {
                     Log Type Distribution
                   </Typography>
                   <div>
-                    <IconButton color="#f75733">
+                    <IconButton
+                      color="#f75733"
+                      onClick={() => handleDownloadClick("logtype-chart")}
+                    >
                       <DownloadIcon />
                     </IconButton>
-                    <IconButton color="#f75733">
-                      <FullscreenIcon />
+                    <IconButton
+                      color="#f75733"
+                      onClick={() => handleFullScreenClick("logtype-chart")}
+                    >
+                      {isFullScreen ? <CloseIcon /> : <FullscreenIcon />}
                     </IconButton>
                   </div>
                 </CardContent>
@@ -247,6 +299,7 @@ const Dashboard = () => {
                   boxShadow: "none",
                   border: "1px solid #f5f5f5",
                 }}
+                id="usage-chart"
               >
                 <CardContent
                   style={{
@@ -260,11 +313,17 @@ const Dashboard = () => {
                     CPU Usage
                   </Typography>
                   <div>
-                    <IconButton color="#f75733">
+                    <IconButton
+                      color="#f75733"
+                      onClick={() => handleDownloadClick("usage-chart")}
+                    >
                       <DownloadIcon />
                     </IconButton>
-                    <IconButton color="#f75733">
-                      <FullscreenIcon />
+                    <IconButton
+                      color="#f75733"
+                      onClick={() => handleFullScreenClick("usage-chart")}
+                    >
+                      {isFullScreen ? <CloseIcon /> : <FullscreenIcon />}
                     </IconButton>
                   </div>
                 </CardContent>
