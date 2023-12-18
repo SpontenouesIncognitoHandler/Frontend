@@ -18,11 +18,12 @@ import CI1 from "./../Assets/CI1.png";
 import CI2 from "./../Assets/CI2.png";
 import { Link } from "react-router-dom";
 import { Card, Grid } from "@mui/material";
+import "./../Commons/Style.css";
 
 const pages = [];
 const settings = ["Register", "Login"];
 
-function ResponsiveAppBar() {
+function Home() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -198,9 +199,12 @@ function ResponsiveAppBar() {
         </Grid>
         <Grid item md={7} style={{ padding: "3%", textAlign: "justify" }}>
           <Typography>
-            <h4 style={{ color: "#f75733" }}>
-              WHAT’S OUR PROBLEM IN SMART INDIA HACKATHON 2023
-            </h4>
+            <div className="typewriter">
+              <h4 style={{ color: "#f75733" }}>
+                WHAT’S OUR PROBLEM IN SMART INDIA HACKATHON 2023
+              </h4>
+            </div>
+            <br/>
             Establishing a server log system for E-governance with appropriate
             notification and content-based classification of log for AICTE.
             <Grid container spacing={2} style={{ marginTop: "2%" }}>
@@ -283,4 +287,4 @@ function ResponsiveAppBar() {
     </div>
   );
 }
-export default ResponsiveAppBar;
+export default Home;

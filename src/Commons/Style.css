@@ -33,3 +33,26 @@
     background-image: none;
   }
 }
+
+.typewriter h4 {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40) infinite;
+  width: auto;
+  display: inline-block;
+}
+
+@keyframes typing {
+  0%,
+  100% {
+    width: auto;
+  }
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
