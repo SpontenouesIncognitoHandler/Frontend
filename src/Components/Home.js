@@ -311,9 +311,9 @@ function Home() {
         >
           <div className="typewriter" style={{ fontWeight: "normal" }}>
             <h2 style={{ color: "#f75733" }}>
-              Tech{" "}
+              Primary{" "}
               <a href="#" style={{ textDecoration: "none", color: "black" }}>
-                Stacks
+                Tech Stacks
               </a>
             </h2>
           </div>

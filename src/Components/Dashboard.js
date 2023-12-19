@@ -41,7 +41,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import Kpi from "./Kpi";
+import Kpi from "../Commons/Kpi";
 
 ChartJS.register(
   CategoryScale,
@@ -169,36 +169,19 @@ const Dashboard = () => {
   };
 
   const logTypesChartData = {
-    labels: ["Info", "Warning", "Error", "Critical"],
+    labels: ["Info", "Warning", "Error"],
     datasets: [
       {
         label: "Log Types",
-        data: [300, 50, 100, 20],
-        backgroundColor: ["#f75733", "#FFCE56", "#36A2EB", "#FF6384"],
+        data: [300, 50, 100],
+        backgroundColor: ["#f75733", "#FFCE56", "#36A2EB"],
         hoverOffset: 4,
       },
     ],
   };
 
   return (
-    <div sx={{ flexGrow: 1, padding: 3 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ marginRight: 2, display: { sm: "none" } }}
-            style={{ backgroundColor: "white" }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <div sx={{ flexGrow: 1, padding: 3 }} style={{backgroundColor:"#f5f5f5"}}>
       <nav>
         <Hidden smUp implementation="css">
           <Drawer
@@ -227,21 +210,20 @@ const Dashboard = () => {
         sx={{ flexGrow: 1, padding: 3 }}
         style={{ marginLeft: "20%", marginRight: "2%" }}
       >
-<Grid container spacing={2} justifyContent="center">
-      <Grid item xs={12} sm={6} md={4}>
-        <Kpi title="Total Sales" value="$1M" description="This month"/>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-        <Kpi title="New Customers" value="200" description="This month"/>
-      </Grid>
-      <Grid item xs={12} sm={6} md={4}>
-      <Kpi title="New Customers" value="200" description="This month"/>
-      </Grid>
-      {/* <Grid item xs={12} sm={6} md={3}>
-      <Kpi title="New Customers" value="200" description="This month"/>
-      </Grid> */}
-    
-    </Grid>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12} sm={6} md={3}>
+            <Kpi title="Total Sales" value="$1M" description="This month" />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <Kpi title="New Customers" value="200" description="This month" />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <Kpi title="New Customers" value="200" description="This month" />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <Kpi title="New Customers" value="200" description="This month" />
+          </Grid>
+        </Grid>
         <Grid container spacing={2.5} style={{ marginTop: "2%" }}>
           <Grid item md={7}>
             <Card
