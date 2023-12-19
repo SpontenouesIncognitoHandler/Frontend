@@ -90,6 +90,7 @@ const Dashboard = () => {
   const handleDownloadClick = (chartId) => {
     const chartElement = document.getElementById(chartId);
     if (chartElement) {
+      
     }
   };
 

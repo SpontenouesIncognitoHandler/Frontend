@@ -8,27 +8,19 @@ import Grid from "@mui/material/Grid";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
-import './../Commons/Style.css';
+import "./../Commons/Style.css";
 
 export default function Signup() {
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [organization, setOrganization] = useState("");
   const [password, setPassword] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [telephone, setTelephone] = useState("");
 
   async function register_user(e) {
     e.preventDefault();
     let data = {
-      firstname: fname,
-      lastname: lname,
       email: email,
       organization: organization,
       password: password,
-      mobile: mobile,
-      telephone: telephone,
     };
     console.log(data);
   }
@@ -63,36 +55,6 @@ export default function Signup() {
               <br />
               <form onSubmit={register_user}>
                 <Typography variant="body2" color="text.secondary">
-                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                    <Grid item xs={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="outlined-basic"
-                        label="First Name"
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setFname(e.target.value);
-                        }}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="outlined-basic"
-                        label="Last Name"
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setLname(e.target.value);
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
                   <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                     <Grid item xs={6}>
                       <TextField
@@ -140,36 +102,6 @@ export default function Signup() {
                           }}
                         />
                       </center>
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                    <Grid item xs={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="outlined-basic"
-                        label="Mobile Number"
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setMobile(e.target.value);
-                        }}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="outlined-basic"
-                        label="Telephone"
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setTelephone(e.target.value);
-                        }}
-                      />
                     </Grid>
                   </Grid>
                   <br />

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -19,6 +19,7 @@ import CI2 from "./../Assets/CI2.png";
 import { Link } from "react-router-dom";
 import { Card, Grid } from "@mui/material";
 import "./../Commons/Style.css";
+import CodeIcon from "./../Assets/CodeIcon.jpg";
 
 const pages = [];
 const settings = ["Register", "Login"];
@@ -26,6 +27,7 @@ const settings = ["Register", "Login"];
 function Home() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,8 +44,22 @@ function Home() {
     setAnchorElUser(null);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const paddingValues = screenWidth < 968 ? "20% 3% 3% 3%" : "7% 3% 3% 3%";
+
   return (
-    <div>
+    <div style={{ width: "auto" }}>
       <AppBar
         position="fixed"
         style={{ backgroundColor: "#f8f9fa", color: "black" }}
@@ -65,7 +81,7 @@ function Home() {
                 textDecoration: "none",
               }}
             >
-              <img src={Logo} style={{ width: "30%" }} />
+              <img src={Logo} style={{ width: "40%" }} />
             </Typography>
             <Typography
               variant="h5"
@@ -97,192 +113,222 @@ function Home() {
               ))}
             </Box>
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={AvatarIcon}
-                    style={{ width: "90%", height: "90%" }}
-                  />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
+              <div style={{ display: "flex" }}>
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Button
-                      key={setting}
-                      component={Link}
-                      to={setting === "Register" ? "./signup" : "./login"}
-                      sx={{
-                        my: 2,
-                        color: "black",
-                        display: "block",
-                        textDecoration: "none",
-                        padding: "0",
-                        margin: "0",
-                      }}
-                    >
-                      {setting}
-                    </Button>
-                  </MenuItem>
+                  <Button
+                    key={setting}
+                    component={Link}
+                    to={setting === "Register" ? "./signup" : "./login"}
+                    style={{
+                      color: "black",
+                      borderRadius: "10px",
+                      border: "1px solid #f75733",
+                      fontSize: "13px",
+                      margin: "3px",
+                    }}
+                  >
+                    {setting}
+                  </Button>
                 ))}
-              </Menu>
+              </div>
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
-      <br />
-      <br />
-      <br />
-      <img src={Banner} style={{ width: "100%" }} />
-      <div
-        style={{
-          backgroundColor: "#fff8ed",
-          textAlign: "justify",
-          padding: "4%",
-        }}
-      >
-        <h2 style={{ color: "#213279" }}>WHAT’S OUR IDEA?</h2>
-        <p>
-          Our project aims to establish a log server for isolated storage and
-          efficient log retrieval. We plan to utilize a high-performance
-          database as a queue cache for rapid and scalable log retrieval,
-          alongside a separate database for short-term storage. An independent
-          server will employ clustering to filter out non-critical logs when
-          specific log levels are unavailable. A classification algorithm will
-          assess log severity, trigger notifications and identify
-          vulnerabilities. Each system will host a Dockerized server agent,
-          granting access to the logs, which will then be transmitted to the
-          central server. Finally, the dashboard will provide authorized users
-          with secure token-based access, ensuring robust data security and
-          include a backup database to safeguard data integrity and longevity.
-        </p>
-      </div>
-      <br />
-      <br />
       <Grid
         container
         spacing={2}
         style={{
-          padding: "4%",
+          padding: paddingValues,
           alignItems: "center",
           justifyContent: "center",
         }}
-        className="home-container"
       >
-        <Grid item md={5} style={{ padding: "2%" }}>
-          <br />
-          <iframe
-            title="YouTube Video"
-            width="100%"
-            height="350"
-            src="https://www.youtube.com/embed/GOK1LZLIx5M"
-            frameborder="0"
-            allowfullscreen
-            style={{ borderRadius: "20px", borderBottom: "5px solid #f75733" }}
-          ></iframe>
+        <Grid item xs={12} md={6} style={{ padding: "3%" }}>
+          <div className="typewriter" style={{ fontWeight: "normal" }}>
+            <h2 style={{ color: "#f75733" }}>
+              Unlock{" "}
+              <a href="#" style={{ textDecoration: "none", color: "black" }}>
+                Server Insights
+              </a>
+            </h2>
+          </div>
+          <p style={{ textAlign: "justify", paddingTop: "1%" }}>
+            Empower your organization with our cutting-edge log management
+            solution, the <b>Guardian of Governance</b>. Monitor server logs
+            seamlessly, receive instant notifications for critical events, and
+            optimize performance with insightful data visualization. Our robust
+            system ensures data integrity and scalability, delivering peace of
+            mind in the face of disasters.
+          </p>
         </Grid>
-        <Grid item md={7} style={{ padding: "3%", textAlign: "justify" }}>
-          <Typography>
-            <div className="typewriter">
-              <h4 style={{ color: "#f75733" }}>
-                WHAT’S OUR PROBLEM IN SMART INDIA HACKATHON 2023
-              </h4>
-            </div>
-            <br/>
-            Establishing a server log system for E-governance with appropriate
-            notification and content-based classification of log for AICTE.
-            <Grid container spacing={2} style={{ marginTop: "2%" }}>
-              <Grid item md={6}>
-                <Card
-                  style={{
-                    border: "1px solid #f75733",
-                    borderRadius: "20px",
-                    backgroundColor: "#fff8ed",
-                    textAlign: "justify",
-                    padding: "3%",
-                    fontSize: "11.5px",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <h4 style={{ color: "#213279", fontSize: "15px" }}>
-                      PRIMARY STACK
-                    </h4>
-                    <img src={CI1} style={{ width: "12%" }} />
-                  </div>
-                  <p>
-                    Our frontend is powered by ReactJS and Chart JS, while the
-                    backend handles real-time data I/O through a Golang server,
-                    caching with Redis or SQS, short-term data storage with RDS,
-                    and backup data storage with S3. Additionally, our backend's
-                    dashboard API is driven by a Flask server, with user data
-                    stored in MySQL.
-                  </p>
-                </Card>
-              </Grid>
-              <Grid item md={6}>
-                <Card
-                  style={{
-                    border: "1px solid #f75733",
-                    borderRadius: "20px",
-                    backgroundColor: "#fff8ed",
-                    textAlign: "justify",
-                    padding: "3%",
-                    fontSize: "11.5px",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <h4 style={{ color: "#213279", fontSize: "15px" }}>
-                      SECONDARY STACK
-                    </h4>
-                    <img src={CI2} style={{ width: "12%" }} />
-                  </div>
-                  <p>
-                    For log analysis and notification, our stack includes Log
-                    Bert, Numpy/Pandas, NLTK, Sendgrid for email notifications,
-                    and Elasticsearch for efficient log storage and retrieval.
-                    In addition, our server agent is built using Bash and Docker
-                    for containerization, and we use JWT or OIDC for secure
-                    authentication and authorization.
-                  </p>
-                </Card>
-              </Grid>
-            </Grid>
-          </Typography>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          style={{ padding: "3%", textAlign: "center" }}
+        >
+          <img
+            src="https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt0ee60d54428ec0b2/614b1cea69b7947c1b3ae7c5/illustration-logstash-white-bg-608x404.png"
+            style={{ width: "80%" }}
+          />
         </Grid>
       </Grid>
-      <br />
-      <br />
-      <br />
-      <div style={{ backgroundColor: "black", color: "white", padding: "2%" }}>
-        <center>© 2023-24 console_log. All rights reserved</center>
+      <h2 style={{ textAlign: "center", color: "#f75733" }}>
+        Log Analysis, Security Alerting & Recovery Optimization
+      </h2>
+      <Grid
+        container
+        spacing={2}
+        style={{
+          padding: "3%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Grid item xs={12} md={4} style={{ padding: "2%" }}>
+          <p>
+            Unlock server security insights with automated log analysis and
+            visualization.
+          </p>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={4}
+          style={{
+            padding: "2%",
+            borderLeft: "1px solid #dfdfdf",
+            borderRight: "1px solid #dfdfdf",
+          }}
+        >
+          <p>
+            Integrate log monitoring, alerts, and recovery for disaster
+            mitigation.
+          </p>
+        </Grid>
+        <Grid item xs={12} md={4} style={{ padding: "2%" }}>
+          <p>
+            Elevate e-governance with tailor-made log intelligence and
+            scalability.
+          </p>
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        spacing={2}
+        style={{
+          padding: "3%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={6}
+          style={{ padding: "3%", textAlign: "center" }}
+        >
+          <img
+            src="https://static-www.elastic.co/v3/assets/bltefdd0b53724fa2ce/blt5939ba2e40ba0790/5d0d59d096d2d1b65a98422c/diagram-logstash-inputs.svg"
+            style={{ width: "80%" }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} style={{ padding: "3%" }}>
+          <div className="typewriter" style={{ fontWeight: "normal" }}>
+            <h2 style={{ color: "#f75733" }}>
+              Key{" "}
+              <a href="#" style={{ textDecoration: "none", color: "black" }}>
+                Features
+              </a>
+            </h2>
+          </div>
+          <p style={{ textAlign: "justify", paddingTop: "1%" }}>
+            Our advanced log analysis solution offers a comprehensive suite of
+            tools designed to enhance system performance and reliability. It
+            combines powerful search, filtering, and querying capabilities for
+            deep insights into system behavior, with intelligent alerting for
+            real-time notifications on critical events.
+            <ul>
+              <li style={{ paddingTop: "1%" }}>Advanced Log Analysis</li>
+              <li style={{ paddingTop: "1%" }}>Intelligent Alerting</li>
+              <li style={{ paddingTop: "1%" }}>Visualization and Reporting</li>
+              <li style={{ paddingTop: "1%" }}>Seamless Integration</li>
+              <li style={{ paddingTop: "1%" }}>
+                Robust Backup and Disaster Recovery
+              </li>
+            </ul>
+          </p>
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        spacing={2}
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#f5f5f5",
+        }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={12}
+          style={{ padding: "3%", textAlign: "center" }}
+        >
+          <h2 style={{ color: "#f75733" }}>Dashboard Insights</h2>
+          <p>
+            With a focus on user-friendly interfaces, our dashboard provides
+            real-time visualization of key metrics from diverse data sources,
+            ensuring an intuitive and efficient analysis platform that
+            simplifies complex data interpretation and enhances decision-making
+            processes.
+          </p>
+          <br />
+          <br />
+          <img
+            src="https://images.klipfolio.com/website/public/5a275fee-d42b-4f31-91f6-8148d4d729af/executive dashboard.png"
+            style={{ width: "70%" }}
+          />
+          <br />
+          <br />
+        </Grid>
+      </Grid>
+      <br/>
+      <Grid
+        container
+        spacing={2}
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={12}
+          style={{ padding: "3%", textAlign: "center" }}
+        >
+          <div className="typewriter" style={{ fontWeight: "normal" }}>
+            <h2 style={{ color: "#f75733" }}>
+              Tech{" "}
+              <a href="#" style={{ textDecoration: "none", color: "black" }}>
+                Stacks
+              </a>
+            </h2>
+          </div>
+          <img src={CodeIcon} style={{ width: "70%" }} />
+        </Grid>
+      </Grid>
+      <div
+        style={{
+          padding: "2%",
+          backgroundColor: "black",
+          color: "white",
+          textAlign: "center",
+        }}
+      >
+        <p>© 2023. console_log. All Rights Reserved</p>
       </div>
     </div>
   );

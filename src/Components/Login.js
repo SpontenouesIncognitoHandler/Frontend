@@ -11,14 +11,12 @@ import { useState } from "react";
 
 export default function Login() {
   const [username, setUsername] = useState("");
-  const [organization, setOrganization] = useState("");
   const [password, setPassword] = useState("");
 
   async function register_user(e) {
     e.preventDefault();
     let data = {
       username: username,
-      organization: organization,
       password: password,
     };
     console.log(data);
@@ -55,7 +53,7 @@ export default function Login() {
               <form onSubmit={register_user}>
                 <Typography variant="body2" color="text.secondary">
                   <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextField
                         required
                         fullWidth
@@ -66,20 +64,6 @@ export default function Login() {
                         onChange={(e) => {
                           e.preventDefault();
                           setUsername(e.target.value);
-                        }}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="outlined-basic"
-                        label="Organization"
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setOrganization(e.target.value);
                         }}
                       />
                     </Grid>
