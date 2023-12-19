@@ -25,6 +25,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import MemoryIcon from "@mui/icons-material/Memory";
 import StorageIcon from "@mui/icons-material/Storage";
 import DownloadIcon from "@mui/icons-material/Download";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+
 import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -87,13 +89,25 @@ const Dashboard = () => {
       setIsFullScreen(!isFullScreen);
     }
   };
-
   const handleDownloadClick = (chartId) => {
     const chartElement = document.getElementById(chartId);
     if (chartElement) {
-      
+      const canvas = chartElement.querySelector('canvas');
+      if (canvas) {
+        const image = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = `${chartId}.png`;
+        link.href = image;
+        link.click();
+      }
     }
   };
+  // const handleDownloadClick = (chartId) => {
+  //   const chartElement = document.getElementById(chartId);
+  //   if (chartElement) {
+      
+  //   }
+  // };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -251,11 +265,11 @@ const Dashboard = () => {
                   Incidents Logged
                 </Typography>
                 <div>
-                  <IconButton
+                <IconButton
                     color="#f75733"
                     onClick={() => handleDownloadClick("incidents-chart")}
                   >
-                    <DownloadIcon />
+                    <FileDownloadIcon />
                   </IconButton>
                   <IconButton
                     color="#f75733"
