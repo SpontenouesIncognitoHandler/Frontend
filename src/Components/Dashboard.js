@@ -39,6 +39,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import Kpi from "./Kpi";
 
 ChartJS.register(
   CategoryScale,
@@ -212,6 +213,21 @@ const Dashboard = () => {
         sx={{ flexGrow: 1, padding: 3 }}
         style={{ marginLeft: "20%", marginRight: "2%" }}
       >
+<Grid container spacing={2} justifyContent="center">
+      <Grid item xs={12} sm={6} md={4}>
+        <Kpi title="Total Sales" value="$1M" description="This month"/>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Kpi title="New Customers" value="200" description="This month"/>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+      <Kpi title="New Customers" value="200" description="This month"/>
+      </Grid>
+      {/* <Grid item xs={12} sm={6} md={3}>
+      <Kpi title="New Customers" value="200" description="This month"/>
+      </Grid> */}
+    
+    </Grid>
         <Grid container spacing={2.5} style={{ marginTop: "2%" }}>
           <Grid item md={7}>
             <Card
