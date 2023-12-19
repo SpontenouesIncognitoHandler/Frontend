@@ -8,18 +8,42 @@ import Grid from "@mui/material/Grid";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function register_user(e) {
     e.preventDefault();
     let data = {
-      username: username,
+      role: "user",
+      user_name: username,
+      email: email,
       password: password,
     };
-    console.log(data);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/user/getToken",
+        data
+      );
+      const { org_id, token, user_id, user_name } = response.data.data;
+      console.log(org_id);
+      console.log(token);
+      console.log(user_id);
+      console.log(user_name);
+
+      localStorage.setItem("org_id", org_id);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user_id", user_id);
+      localStorage.setItem("user_name", user_name);
+
+      window.location.href = "/dashboard";
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -42,7 +66,7 @@ export default function Login() {
                 component="div"
                 style={{ marginBottoms: "0", fontWeight: "bold" }}
               >
-                Login Here
+                Join From Here
               </Typography>
               <p style={{ marginTop: "0" }}>
                 Please Fill The Requirements Below to
@@ -53,7 +77,7 @@ export default function Login() {
               <form onSubmit={register_user}>
                 <Typography variant="body2" color="text.secondary">
                   <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                       <TextField
                         required
                         fullWidth
@@ -64,6 +88,20 @@ export default function Login() {
                         onChange={(e) => {
                           e.preventDefault();
                           setUsername(e.target.value);
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="outlined-basic"
+                        label="Email"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setEmail(e.target.value);
                         }}
                       />
                     </Grid>

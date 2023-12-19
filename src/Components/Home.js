@@ -22,7 +22,7 @@ import "./../Commons/Style.css";
 import CodeIcon from "./../Assets/CodeIcon.jpg";
 
 const pages = [];
-const settings = ["Register", "Login"];
+const settings = ["Dashboard"];
 
 function Home() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

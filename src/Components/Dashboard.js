@@ -25,7 +25,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MemoryIcon from "@mui/icons-material/Memory";
 import StorageIcon from "@mui/icons-material/Storage";
 import DownloadIcon from "@mui/icons-material/Download";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
 import {
@@ -92,22 +92,16 @@ const Dashboard = () => {
   const handleDownloadClick = (chartId) => {
     const chartElement = document.getElementById(chartId);
     if (chartElement) {
-      const canvas = chartElement.querySelector('canvas');
+      const canvas = chartElement.querySelector("canvas");
       if (canvas) {
-        const image = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
         link.download = `${chartId}.png`;
         link.href = image;
         link.click();
       }
     }
   };
-  // const handleDownloadClick = (chartId) => {
-  //   const chartElement = document.getElementById(chartId);
-  //   if (chartElement) {
-      
-  //   }
-  // };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -127,7 +121,7 @@ const Dashboard = () => {
   );
 
   const cpuUsageData = {
-    labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00"],
+    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
     datasets: [
       {
         label: "CPU Usage (%)",
@@ -181,7 +175,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div sx={{ flexGrow: 1, padding: 3 }} style={{backgroundColor:"#f5f5f5"}}>
+    <div
+      sx={{ flexGrow: 1, padding: 3 }}
+      style={{ backgroundColor: "#f5f5f5" }}
+    >
       <nav>
         <Hidden smUp implementation="css">
           <Drawer
@@ -212,16 +209,16 @@ const Dashboard = () => {
       >
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="Total Sales" value="$1M" description="This month" />
+            <Kpi title="Total Logs" value="10,000" description="This Month" />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="New Customers" value="200" description="This month" />
+            <Kpi title="CPU Usage" value="20% ￪" description="This Month" />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="New Customers" value="200" description="This month" />
+            <Kpi title="Server Load" value="10% ￪" description="This Month" />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="New Customers" value="200" description="This month" />
+            <Kpi title="Memory Usage" value="5% ￪" description="This Month" />
           </Grid>
         </Grid>
         <Grid container spacing={2.5} style={{ marginTop: "2%" }}>
@@ -235,7 +232,7 @@ const Dashboard = () => {
               }}
               id="incidents-chart"
             >
-              <CardContent
+              {/* <CardContent
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -247,7 +244,7 @@ const Dashboard = () => {
                   Incidents Logged
                 </Typography>
                 <div>
-                <IconButton
+                  <IconButton
                     color="#f75733"
                     onClick={() => handleDownloadClick("incidents-chart")}
                   >
@@ -260,8 +257,8 @@ const Dashboard = () => {
                     {isFullScreen ? <CloseIcon /> : <FullscreenIcon />}
                   </IconButton>
                 </div>
-              </CardContent>
-              <Bar data={incidentsChartData} style={{ padding: "3%" }} />
+              </CardContent> */}
+              {/* <Bar data={incidentsChartData} style={{ padding: "3%" }} /> */}
             </Card>
           </Grid>
           <Grid item md={5}>
