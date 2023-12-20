@@ -489,7 +489,7 @@ function Dashboard(props) {
     };
   }, []);
 
-  useEffect(() => {
+  const fetchData = () => {
     axios
       .get("https://e74a-14-139-208-67.ngrok-free.app/api/linux/", {
         headers: {
@@ -508,20 +508,17 @@ function Dashboard(props) {
         console.error(error);
         setIsLoading(false);
       });
-  }, []);
+  };
 
-  function getColorByLogLevel(level) {
-    switch (level) {
-      case "INFO":
-        return "#beebca";
-      case "WARN":
-        return "#feed79";
-      case "ERROR":
-        return "#ffb1ce";
-      default:
-        return "white";
-    }
-  }
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(() => {
+      fetchData();
+    }, 90000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleFullScreenClick = (chartId) => {
     const chartElement = document.getElementById(chartId);
@@ -604,6 +601,17 @@ function Dashboard(props) {
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
+  };
+
+  const getColorByPriority = (priority) => {
+    if (priority >= 6) {
+      return "#beebca";
+    } else if (priority === 4 || priority === 5) {
+      return "#feed79";
+    } else if (priority <= 3) {
+      return "#ffb1ce";
+    }
+    return "";
   };
 
   const widthValues = screenWidth < 968 ? "80%" : "95%";
@@ -767,7 +775,7 @@ function Dashboard(props) {
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
-                        style={{ background: getColorByLogLevel(log.Level) }}
+                        style={{ background: getColorByPriority(log.PRIORITY) }}
                       >
                         <TableCell component="th" scope="row">
                           {log._PID}
