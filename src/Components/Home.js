@@ -19,8 +19,8 @@ import CI2 from "./../Assets/CI2.png";
 import { Link } from "react-router-dom";
 import { Card, Grid } from "@mui/material";
 import "./../Commons/Style.css";
-import CodeIcon from "./../Assets/CodeIcon.jpg";
-import dbImage from './../Assets/db.png';
+import CodeIcon from "./../Assets/CodeIcon.png";
+import dbImage from "./../Assets/db.png";
 
 const pages = [];
 const settings = ["Dashboard"];
@@ -287,15 +287,12 @@ function Home() {
           </p>
           <br />
           <br />
-          <img
-            src={dbImage}
-            style={{ width: "70%", borderRadius:"20px"}}
-          />
+          <img src={dbImage} style={{ width: "70%", borderRadius: "20px" }} />
           <br />
           <br />
         </Grid>
       </Grid>
-      <br/>
+      <br />
       <Grid
         container
         spacing={2}
@@ -318,7 +315,7 @@ function Home() {
               </a>
             </h2>
           </div>
-          <img src={CodeIcon} style={{ width: "70%" }} />
+          <img src={CodeIcon} style={{ width: "70%", padding: "3%" }} />
         </Grid>
       </Grid>
       <div
