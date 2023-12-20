@@ -35,262 +35,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
 import axios from "axios";
 
-// const logs = [
-//   {
-//     LineId: 843,
-//     Date: "18-10-2015",
-//     Time: "18:04:57,443",
-//     Level: "INFO",
-//     Process: "IPC Server handler 14 on 62270",
-//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-//     Content:
-//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000007_0 is : 0.3707891",
-//     EventId: "E80",
-//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-//   },
-//   {
-//     LineId: 844,
-//     Date: "18-10-2015",
-//     Time: "18:04:59,771",
-//     Level: "INFO",
-//     Process: "IPC Server handler 0 on 62270",
-//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-//     Content:
-//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000001_0 is : 0.37551183",
-//     EventId: "E80",
-//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-//   },
-//   {
-//     LineId: 845,
-//     Date: "18-10-2015",
-//     Time: "18:04:59,787",
-//     Level: "INFO",
-//     Process: "IPC Server handler 10 on 62270",
-//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-//     Content:
-//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000002_0 is : 0.38137424",
-//     EventId: "E80",
-//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-//   },
-//   {
-//     LineId: 846,
-//     Date: "18-10-2015",
-//     Time: "18:05:02,802",
-//     Level: "INFO",
-//     Process: "IPC Server handler 10 on 62270",
-//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-//     Content:
-//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000001_0 is : 0.37551183",
-//     EventId: "E80",
-//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-//   },
-//   {
-//     LineId: 847,
-//     Date: "18-10-2015",
-//     Time: "18:05:02,818",
-//     Level: "INFO",
-//     Process: "IPC Server handler 4 on 62270",
-//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-//     Content:
-//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000002_0 is : 0.38137424",
-//     EventId: "E80",
-//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-//   },
-//   {
-//     LineId: 848,
-//     Date: "18-10-2015",
-//     Time: "18:05:27,570",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.ipc.Client",
-//     Content:
-//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-//     EventId: "E10",
-//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-//   },
-//   {
-//     LineId: 849,
-//     Date: "18-10-2015",
-//     Time: "18:05:27,570",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-//     Content:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 30 seconds.  Will retry shortly ...",
-//     EventId: "E44",
-//     EventTemplate:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-//   },
-//   {
-//     LineId: 850,
-//     Date: "18-10-2015",
-//     Time: "18:05:28,570",
-//     Level: "c",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.ipc.Client",
-//     Content:
-//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-//     EventId: "E10",
-//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-//   },
-//   {
-//     LineId: 851,
-//     Date: "18-10-2015",
-//     Time: "18:05:28,570",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-//     Content:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 31 seconds.  Will retry shortly ...",
-//     EventId: "E44",
-//     EventTemplate:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-//   },
-//   {
-//     LineId: 852,
-//     Date: "18-10-2015",
-//     Time: "18:05:29,570",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.ipc.Client",
-//     Content:
-//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-//     EventId: "E10",
-//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-//   },
-//   {
-//     LineId: 853,
-//     Date: "18-10-2015",
-//     Time: "18:05:29,570",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-//     Content:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 32 seconds.  Will retry shortly ...",
-//     EventId: "E44",
-//     EventTemplate:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-//   },
-//   {
-//     LineId: 1978,
-//     Date: "18-10-2015",
-//     Time: "18:10:48,545",
-//     Level: "ERROR",
-//     Process: "RMCommunicator Allocator",
-//     Component: "org.apache.hadoop.mapreduce.v2.app.rm.RMContainerAllocator",
-//     Content: "ERROR IN CONTACTING RM.",
-//     EventId: "E38",
-//     EventTemplate: "ERROR IN CONTACTING RM.",
-//   },
-//   {
-//     LineId: 1979,
-//     Date: "18-10-2015",
-//     Time: "18:10:49,139",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.ipc.Client",
-//     Content:
-//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-//     EventId: "E10",
-//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-//   },
-//   {
-//     LineId: 1980,
-//     Date: "18-10-2015",
-//     Time: "18:10:49,139",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-//     Content:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 351 seconds.  Will retry shortly ...",
-//     EventId: "E44",
-//     EventTemplate:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-//   },
-//   {
-//     LineId: 1981,
-//     Date: "18-10-2015",
-//     Time: "18:10:49,545",
-//     Level: "WARN",
-//     Process: "RMCommunicator Allocator",
-//     Component: "org.apache.hadoop.ipc.Client",
-//     Content:
-//       "Address change detected. Old: msra-sa-41/10.190.173.170:8030 New: msra-sa-41:8030",
-//     EventId: "E10",
-//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-//   },
-//   {
-//     LineId: 1982,
-//     Date: "18-10-2015",
-//     Time: "18:10:50,155",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.ipc.Client",
-//     Content:
-//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-//     EventId: "E10",
-//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-//   },
-//   {
-//     LineId: 1983,
-//     Date: "18-10-2015",
-//     Time: "18:10:50,155",
-//     Level: "WARN",
-//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-//     Content:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 352 seconds.  Will retry shortly ...",
-//     EventId: "E44",
-//     EventTemplate:
-//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-//   },
-//   {
-//     LineId: 1984,
-//     Date: "18-10-2015",
-//     Time: "18:10:50,545",
-//     Level: "INFO",
-//     Process: "RMCommunicator Allocator",
-//     Component: "org.apache.hadoop.ipc.Client",
-//     Content:
-//       "Retrying connect to server: msra-sa-41:8030. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)",
-//     EventId: "E91",
-//     EventTemplate:
-//       "Retrying connect to server: <*>:<*>. Already tried <*> time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=<*>, sleepTime=<*> MILLISECONDS)",
-//   },
-//   {
-//     LineId: 1985,
-//     Date: "18-10-2015",
-//     Time: "18:10:50,545",
-//     Level: "ERROR",
-//     Process: "RMCommunicator Allocator",
-//     Component: "org.apache.hadoop.mapreduce.v2.app.rm.RMContainerAllocator",
-//     Content: "ERROR IN CONTACTING RM.",
-//     EventId: "E38",
-//     EventTemplate: "ERROR IN CONTACTING RM.",
-//   },
-// ];
-
-const logTypesChartData = [
-  {
-    id: "info",
-    label: "Info",
-    value: 6,
-    color: "hsl(210, 70%, 50%)",
-  },
-  {
-    id: "warning",
-    label: "Warning",
-    value: 10,
-    color: "hsl(40, 70%, 50%)",
-  },
-  {
-    id: "error",
-    label: "Error",
-    value: 2,
-    color: "hsl(0, 70%, 50%)",
-  },
-];
-
 const MyLogTypesChart = ({ data }) => (
   <ResponsivePie
     data={data}
@@ -343,6 +87,84 @@ const MyLogTypesChart = ({ data }) => (
       {
         match: {
           id: "error",
+        },
+        id: "lines",
+      },
+    ]}
+    legends={[
+      {
+        anchor: "bottom",
+        direction: "row",
+        justify: false,
+        translateX: 0,
+        translateY: 56,
+        itemsSpacing: 0,
+        itemWidth: 100,
+        itemHeight: 18,
+        itemTextColor: "#999",
+        itemDirection: "left-to-right",
+        itemOpacity: 1,
+        symbolSize: 18,
+        symbolShape: "circle",
+        effects: [
+          {
+            on: "hover",
+            style: {
+              itemTextColor: "#000",
+            },
+          },
+        ],
+      },
+    ]}
+  />
+);
+
+const MySyslogIdentifierChart = ({ data }) => (
+  <ResponsivePie
+    data={data}
+    margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+    innerRadius={0.5}
+    padAngle={0.7}
+    cornerRadius={3}
+    activeOuterRadiusOffset={8}
+    borderWidth={1}
+    borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
+    arcLinkLabelsSkipAngle={10}
+    arcLinkLabelsTextColor="#333333"
+    arcLinkLabelsThickness={2}
+    arcLinkLabelsColor={{ from: "color" }}
+    arcLabelsSkipAngle={10}
+    arcLabelsTextColor={{ from: "color", modifiers: [["darker", 2]] }}
+    defs={[
+      {
+        id: "dots",
+        type: "patternDots",
+        background: "inherit",
+        color: "rgba(144, 238, 144, 0.7)",
+        size: 4,
+        padding: 1,
+        stagger: true,
+      },
+      {
+        id: "lines",
+        type: "patternLines",
+        background: "inherit",
+        color: "rgba(255, 255, 255, 0.3)",
+        rotation: -45,
+        lineWidth: 6,
+        spacing: 10,
+      },
+    ]}
+    fill={[
+      {
+        match: {
+          id: "systemd",
+        },
+        id: "dots",
+      },
+      {
+        match: {
+          id: "(AppImage)",
         },
         id: "lines",
       },
@@ -476,6 +298,11 @@ function Dashboard(props) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorCount, setErrorCount] = useState(0);
+  const [warningCount, setWarningCount] = useState(0);
+  const [infoCount, setInfoCount] = useState(0);
+  const [systemdCount, setSystemdCount] = useState(0);
+  const [appimageCount, setAppimageCount] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -500,7 +327,41 @@ function Dashboard(props) {
         const jsonData = response.data.data;
         const parsedLogs = jsonData.map((jsonString) => JSON.parse(jsonString));
 
-        console.log(parsedLogs);
+        let errorCount = 0;
+        let warningCount = 0;
+        let infoCount = 0;
+
+        parsedLogs.forEach((log) => {
+          const priority = log.PRIORITY;
+          if (priority >= 0 && priority <= 3) {
+            errorCount++;
+          } else if (priority >= 4 && priority <= 5) {
+            warningCount++;
+          } else if (priority >= 6 && priority <= 7) {
+            infoCount++;
+          }
+        });
+
+        setErrorCount(errorCount);
+        setWarningCount(warningCount);
+        setInfoCount(infoCount);
+
+        let systemdC = 0;
+        let appimageC = 0;
+
+        parsedLogs.forEach((log) => {
+          const logIdentifier = log.SYSLOG_IDENTIFIER;
+          if (logIdentifier == "systemd") {
+            systemdC++;
+          } else {
+            appimageC++;
+          }
+        });
+
+        setSystemdCount(systemdC);
+        setAppimageCount(appimageC);
+
+        // console.log(parsedLogs);
         setLogs(parsedLogs);
         setIsLoading(false);
       })
@@ -519,6 +380,42 @@ function Dashboard(props) {
       clearInterval(interval);
     };
   }, []);
+
+  const logTypesChartData = [
+    {
+      id: "info",
+      label: "Info",
+      value: infoCount,
+      color: "hsl(210, 70%, 50%)",
+    },
+    {
+      id: "warning",
+      label: "Warning",
+      value: warningCount,
+      color: "hsl(40, 70%, 50%)",
+    },
+    {
+      id: "error",
+      label: "Error",
+      value: errorCount,
+      color: "hsl(0, 70%, 50%)",
+    },
+  ];
+
+  const systemIdentifierChartData = [
+    {
+      id: "systemd",
+      label: "systemd",
+      value: systemdCount,
+      color: "hsl(210, 70%, 50%)",
+    },
+    {
+      id: "(AppImage)",
+      label: "(AppImage)",
+      value: appimageCount,
+      color: "hsl(40, 70%, 50%)",
+    },
+  ];
 
   const handleFullScreenClick = (chartId) => {
     const chartElement = document.getElementById(chartId);
@@ -606,7 +503,7 @@ function Dashboard(props) {
   const getColorByPriority = (priority) => {
     if (priority >= 6) {
       return "#beebca";
-    } else if (priority === 4 || priority === 5) {
+    } else if (priority >= 4 && priority <= 5) {
       return "#feed79";
     } else if (priority <= 3) {
       return "#ffb1ce";
@@ -650,21 +547,11 @@ function Dashboard(props) {
           justifyContent="center"
           style={{ padding: "4%" }}
         >
-          <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="Total Logs" value="8,347" description="This Month" />
+          <Grid item xs={12} sm={6} md={6}>
+            <Kpi title="Total Logs" value="30" description="This Month" />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={6}>
             <Kpi title="CPU Usage" value="23.7% ￪" description="This Month" />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="Server Load" value="7.33% ￪" description="This Month" />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Kpi
-              title="Memory Usage"
-              value="3.25% ￪"
-              description="This Month"
-            />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <Card
@@ -715,7 +602,7 @@ function Dashboard(props) {
                 boxShadow: "none",
                 border: "1px solid #f5f5f5",
               }}
-              id="cpu-usage-chart"
+              id="system-identifier-chart"
             >
               <CardContent
                 style={{
@@ -726,25 +613,29 @@ function Dashboard(props) {
                 }}
               >
                 <Typography variant="h7" component="h7">
-                  CPU Usage Chart
+                  System Identifier Chart
                 </Typography>
                 <div>
                   <IconButton
                     color="#f75733"
-                    onClick={() => handleDownloadClick("cpu-usage-chart")}
+                    onClick={() =>
+                      handleDownloadClick("system-identifier-chart")
+                    }
                   >
                     <DownloadIcon />
                   </IconButton>
                   <IconButton
                     color="#f75733"
-                    onClick={() => handleFullScreenClick("cpu-usage-chart")}
+                    onClick={() =>
+                      handleFullScreenClick("system-identifier-chart")
+                    }
                   >
                     {isFullScreen ? <CloseIcon /> : <FullscreenIcon />}
                   </IconButton>
                 </div>
               </CardContent>
               <div style={{ height: "400px" }}>
-                <MyCpuUsageLine data={cpuUsageData} />
+                <MySyslogIdentifierChart data={systemIdentifierChartData} />
               </div>
             </Card>
           </Grid>
