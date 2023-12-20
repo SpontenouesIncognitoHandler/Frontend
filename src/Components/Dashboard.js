@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -472,6 +472,19 @@ const MyCpuUsageLine = ({ data }) => (
 function Dashboard(props) {
   const [collapsed, setCollapsed] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   function getColorByLogLevel(level) {
     switch (level) {
@@ -553,10 +566,12 @@ function Dashboard(props) {
     setCollapsed(!collapsed);
   };
 
+  const widthValues = screenWidth < 968 ? "80%" : "95%";
+
   return (
-    <div>
-      <div style={{ display: "flex", height: "100vh" }}>
-        <Sidebar collapsed={collapsed}>
+    <div style={{ width: widthValues }}>
+      <div style={{ display: "flex", height: "auto" }}>
+        <Sidebar collapsed={!collapsed} style={{ height: "auto" }}>
           <Menu style={{ marginTop: "30px" }}>
             <MenuItem>
               <List>
