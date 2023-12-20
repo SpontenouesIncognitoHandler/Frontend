@@ -517,13 +517,33 @@ function Dashboard(props) {
   };
   const handleDownloadClick = (chartId) => {
     const chartElement = document.getElementById(chartId);
+    console.log(chartElement);
     if (chartElement) {
-      const canvas = chartElement.querySelector("canvas");
-      if (canvas) {
-        const image = canvas.toDataURL("image/png");
+      const svg = chartElement.querySelector("svg");
+      console.log(svg);
+      if (svg) {
+        const serializer = new XMLSerializer();
+        let source = serializer.serializeToString(svg);
+        if (
+          !source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)
+        ) {
+          source = source.replace(
+            /^<svg/,
+            '<svg xmlns="http://www.w3.org/2000/svg"'
+          );
+        }
+        if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+          source = source.replace(
+            /^<svg/,
+            '<svg xmlns:xlink="http://www.w3.org/1999/xlink"'
+          );
+        }
+        source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+        const url =
+          "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
         const link = document.createElement("a");
-        link.download = `${chartId}.png`;
-        link.href = image;
+        link.download = `${chartId}.svg`;
+        link.href = url;
         link.click();
       }
     }
@@ -632,7 +652,7 @@ function Dashboard(props) {
                 boxShadow: "none",
                 border: "1px solid #f5f5f5",
               }}
-              id="cpu-usage"
+              id="cpu-usage-chart"
             >
               <CardContent
                 style={{

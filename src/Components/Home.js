@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { Card, Grid } from "@mui/material";
 import "./../Commons/Style.css";
 import CodeIcon from "./../Assets/CodeIcon.jpg";
+import dbImage from './../Assets/db.png';
 
 const pages = [];
 const settings = ["Dashboard"];
@@ -287,8 +288,8 @@ function Home() {
           <br />
           <br />
           <img
-            src="https://images.klipfolio.com/website/public/5a275fee-d42b-4f31-91f6-8148d4d729af/executive dashboard.png"
-            style={{ width: "70%" }}
+            src={dbImage}
+            style={{ width: "70%", borderRadius:"20px"}}
           />
           <br />
           <br />
