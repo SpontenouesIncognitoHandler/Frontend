@@ -33,241 +33,242 @@ import { ResponsiveLine } from "@nivo/line";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
+import axios from "axios";
 
-const logs = [
-  {
-    LineId: 843,
-    Date: "18-10-2015",
-    Time: "18:04:57,443",
-    Level: "INFO",
-    Process: "IPC Server handler 14 on 62270",
-    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-    Content:
-      "Progress of TaskAttempt attempt_1445144423722_0020_m_000007_0 is : 0.3707891",
-    EventId: "E80",
-    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-  },
-  {
-    LineId: 844,
-    Date: "18-10-2015",
-    Time: "18:04:59,771",
-    Level: "INFO",
-    Process: "IPC Server handler 0 on 62270",
-    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-    Content:
-      "Progress of TaskAttempt attempt_1445144423722_0020_m_000001_0 is : 0.37551183",
-    EventId: "E80",
-    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-  },
-  {
-    LineId: 845,
-    Date: "18-10-2015",
-    Time: "18:04:59,787",
-    Level: "INFO",
-    Process: "IPC Server handler 10 on 62270",
-    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-    Content:
-      "Progress of TaskAttempt attempt_1445144423722_0020_m_000002_0 is : 0.38137424",
-    EventId: "E80",
-    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-  },
-  {
-    LineId: 846,
-    Date: "18-10-2015",
-    Time: "18:05:02,802",
-    Level: "INFO",
-    Process: "IPC Server handler 10 on 62270",
-    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-    Content:
-      "Progress of TaskAttempt attempt_1445144423722_0020_m_000001_0 is : 0.37551183",
-    EventId: "E80",
-    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-  },
-  {
-    LineId: 847,
-    Date: "18-10-2015",
-    Time: "18:05:02,818",
-    Level: "INFO",
-    Process: "IPC Server handler 4 on 62270",
-    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
-    Content:
-      "Progress of TaskAttempt attempt_1445144423722_0020_m_000002_0 is : 0.38137424",
-    EventId: "E80",
-    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
-  },
-  {
-    LineId: 848,
-    Date: "18-10-2015",
-    Time: "18:05:27,570",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.ipc.Client",
-    Content:
-      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-    EventId: "E10",
-    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-  },
-  {
-    LineId: 849,
-    Date: "18-10-2015",
-    Time: "18:05:27,570",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-    Content:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 30 seconds.  Will retry shortly ...",
-    EventId: "E44",
-    EventTemplate:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-  },
-  {
-    LineId: 850,
-    Date: "18-10-2015",
-    Time: "18:05:28,570",
-    Level: "c",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.ipc.Client",
-    Content:
-      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-    EventId: "E10",
-    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-  },
-  {
-    LineId: 851,
-    Date: "18-10-2015",
-    Time: "18:05:28,570",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-    Content:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 31 seconds.  Will retry shortly ...",
-    EventId: "E44",
-    EventTemplate:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-  },
-  {
-    LineId: 852,
-    Date: "18-10-2015",
-    Time: "18:05:29,570",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.ipc.Client",
-    Content:
-      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-    EventId: "E10",
-    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-  },
-  {
-    LineId: 853,
-    Date: "18-10-2015",
-    Time: "18:05:29,570",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-    Content:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 32 seconds.  Will retry shortly ...",
-    EventId: "E44",
-    EventTemplate:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-  },
-  {
-    LineId: 1978,
-    Date: "18-10-2015",
-    Time: "18:10:48,545",
-    Level: "ERROR",
-    Process: "RMCommunicator Allocator",
-    Component: "org.apache.hadoop.mapreduce.v2.app.rm.RMContainerAllocator",
-    Content: "ERROR IN CONTACTING RM.",
-    EventId: "E38",
-    EventTemplate: "ERROR IN CONTACTING RM.",
-  },
-  {
-    LineId: 1979,
-    Date: "18-10-2015",
-    Time: "18:10:49,139",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.ipc.Client",
-    Content:
-      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-    EventId: "E10",
-    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-  },
-  {
-    LineId: 1980,
-    Date: "18-10-2015",
-    Time: "18:10:49,139",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-    Content:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 351 seconds.  Will retry shortly ...",
-    EventId: "E44",
-    EventTemplate:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-  },
-  {
-    LineId: 1981,
-    Date: "18-10-2015",
-    Time: "18:10:49,545",
-    Level: "WARN",
-    Process: "RMCommunicator Allocator",
-    Component: "org.apache.hadoop.ipc.Client",
-    Content:
-      "Address change detected. Old: msra-sa-41/10.190.173.170:8030 New: msra-sa-41:8030",
-    EventId: "E10",
-    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-  },
-  {
-    LineId: 1982,
-    Date: "18-10-2015",
-    Time: "18:10:50,155",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.ipc.Client",
-    Content:
-      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
-    EventId: "E10",
-    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
-  },
-  {
-    LineId: 1983,
-    Date: "18-10-2015",
-    Time: "18:10:50,155",
-    Level: "WARN",
-    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
-    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
-    Content:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 352 seconds.  Will retry shortly ...",
-    EventId: "E44",
-    EventTemplate:
-      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
-  },
-  {
-    LineId: 1984,
-    Date: "18-10-2015",
-    Time: "18:10:50,545",
-    Level: "INFO",
-    Process: "RMCommunicator Allocator",
-    Component: "org.apache.hadoop.ipc.Client",
-    Content:
-      "Retrying connect to server: msra-sa-41:8030. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)",
-    EventId: "E91",
-    EventTemplate:
-      "Retrying connect to server: <*>:<*>. Already tried <*> time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=<*>, sleepTime=<*> MILLISECONDS)",
-  },
-  {
-    LineId: 1985,
-    Date: "18-10-2015",
-    Time: "18:10:50,545",
-    Level: "ERROR",
-    Process: "RMCommunicator Allocator",
-    Component: "org.apache.hadoop.mapreduce.v2.app.rm.RMContainerAllocator",
-    Content: "ERROR IN CONTACTING RM.",
-    EventId: "E38",
-    EventTemplate: "ERROR IN CONTACTING RM.",
-  },
-];
+// const logs = [
+//   {
+//     LineId: 843,
+//     Date: "18-10-2015",
+//     Time: "18:04:57,443",
+//     Level: "INFO",
+//     Process: "IPC Server handler 14 on 62270",
+//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+//     Content:
+//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000007_0 is : 0.3707891",
+//     EventId: "E80",
+//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+//   },
+//   {
+//     LineId: 844,
+//     Date: "18-10-2015",
+//     Time: "18:04:59,771",
+//     Level: "INFO",
+//     Process: "IPC Server handler 0 on 62270",
+//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+//     Content:
+//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000001_0 is : 0.37551183",
+//     EventId: "E80",
+//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+//   },
+//   {
+//     LineId: 845,
+//     Date: "18-10-2015",
+//     Time: "18:04:59,787",
+//     Level: "INFO",
+//     Process: "IPC Server handler 10 on 62270",
+//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+//     Content:
+//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000002_0 is : 0.38137424",
+//     EventId: "E80",
+//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+//   },
+//   {
+//     LineId: 846,
+//     Date: "18-10-2015",
+//     Time: "18:05:02,802",
+//     Level: "INFO",
+//     Process: "IPC Server handler 10 on 62270",
+//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+//     Content:
+//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000001_0 is : 0.37551183",
+//     EventId: "E80",
+//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+//   },
+//   {
+//     LineId: 847,
+//     Date: "18-10-2015",
+//     Time: "18:05:02,818",
+//     Level: "INFO",
+//     Process: "IPC Server handler 4 on 62270",
+//     Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+//     Content:
+//       "Progress of TaskAttempt attempt_1445144423722_0020_m_000002_0 is : 0.38137424",
+//     EventId: "E80",
+//     EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+//   },
+//   {
+//     LineId: 848,
+//     Date: "18-10-2015",
+//     Time: "18:05:27,570",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.ipc.Client",
+//     Content:
+//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+//     EventId: "E10",
+//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+//   },
+//   {
+//     LineId: 849,
+//     Date: "18-10-2015",
+//     Time: "18:05:27,570",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+//     Content:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 30 seconds.  Will retry shortly ...",
+//     EventId: "E44",
+//     EventTemplate:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+//   },
+//   {
+//     LineId: 850,
+//     Date: "18-10-2015",
+//     Time: "18:05:28,570",
+//     Level: "c",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.ipc.Client",
+//     Content:
+//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+//     EventId: "E10",
+//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+//   },
+//   {
+//     LineId: 851,
+//     Date: "18-10-2015",
+//     Time: "18:05:28,570",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+//     Content:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 31 seconds.  Will retry shortly ...",
+//     EventId: "E44",
+//     EventTemplate:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+//   },
+//   {
+//     LineId: 852,
+//     Date: "18-10-2015",
+//     Time: "18:05:29,570",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.ipc.Client",
+//     Content:
+//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+//     EventId: "E10",
+//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+//   },
+//   {
+//     LineId: 853,
+//     Date: "18-10-2015",
+//     Time: "18:05:29,570",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+//     Content:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 32 seconds.  Will retry shortly ...",
+//     EventId: "E44",
+//     EventTemplate:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+//   },
+//   {
+//     LineId: 1978,
+//     Date: "18-10-2015",
+//     Time: "18:10:48,545",
+//     Level: "ERROR",
+//     Process: "RMCommunicator Allocator",
+//     Component: "org.apache.hadoop.mapreduce.v2.app.rm.RMContainerAllocator",
+//     Content: "ERROR IN CONTACTING RM.",
+//     EventId: "E38",
+//     EventTemplate: "ERROR IN CONTACTING RM.",
+//   },
+//   {
+//     LineId: 1979,
+//     Date: "18-10-2015",
+//     Time: "18:10:49,139",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.ipc.Client",
+//     Content:
+//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+//     EventId: "E10",
+//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+//   },
+//   {
+//     LineId: 1980,
+//     Date: "18-10-2015",
+//     Time: "18:10:49,139",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+//     Content:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 351 seconds.  Will retry shortly ...",
+//     EventId: "E44",
+//     EventTemplate:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+//   },
+//   {
+//     LineId: 1981,
+//     Date: "18-10-2015",
+//     Time: "18:10:49,545",
+//     Level: "WARN",
+//     Process: "RMCommunicator Allocator",
+//     Component: "org.apache.hadoop.ipc.Client",
+//     Content:
+//       "Address change detected. Old: msra-sa-41/10.190.173.170:8030 New: msra-sa-41:8030",
+//     EventId: "E10",
+//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+//   },
+//   {
+//     LineId: 1982,
+//     Date: "18-10-2015",
+//     Time: "18:10:50,155",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.ipc.Client",
+//     Content:
+//       "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+//     EventId: "E10",
+//     EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+//   },
+//   {
+//     LineId: 1983,
+//     Date: "18-10-2015",
+//     Time: "18:10:50,155",
+//     Level: "WARN",
+//     Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+//     Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+//     Content:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 352 seconds.  Will retry shortly ...",
+//     EventId: "E44",
+//     EventTemplate:
+//       "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+//   },
+//   {
+//     LineId: 1984,
+//     Date: "18-10-2015",
+//     Time: "18:10:50,545",
+//     Level: "INFO",
+//     Process: "RMCommunicator Allocator",
+//     Component: "org.apache.hadoop.ipc.Client",
+//     Content:
+//       "Retrying connect to server: msra-sa-41:8030. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)",
+//     EventId: "E91",
+//     EventTemplate:
+//       "Retrying connect to server: <*>:<*>. Already tried <*> time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=<*>, sleepTime=<*> MILLISECONDS)",
+//   },
+//   {
+//     LineId: 1985,
+//     Date: "18-10-2015",
+//     Time: "18:10:50,545",
+//     Level: "ERROR",
+//     Process: "RMCommunicator Allocator",
+//     Component: "org.apache.hadoop.mapreduce.v2.app.rm.RMContainerAllocator",
+//     Content: "ERROR IN CONTACTING RM.",
+//     EventId: "E38",
+//     EventTemplate: "ERROR IN CONTACTING RM.",
+//   },
+// ];
 
 const logTypesChartData = [
   {
@@ -473,6 +474,8 @@ function Dashboard(props) {
   const [collapsed, setCollapsed] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [logs, setLogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -484,6 +487,27 @@ function Dashboard(props) {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("https://e74a-14-139-208-67.ngrok-free.app/api/linux/", {
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+        },
+      })
+      .then((response) => {
+        const jsonData = response.data.data;
+        const parsedLogs = jsonData.map((jsonString) => JSON.parse(jsonString));
+
+        console.log(parsedLogs);
+        setLogs(parsedLogs);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+      });
   }, []);
 
   function getColorByLogLevel(level) {
@@ -560,6 +584,22 @@ function Dashboard(props) {
         link.click();
       }
     }
+  };
+
+  const convertToTimestamp = (datetimeStr) => {
+    const year = parseInt(datetimeStr.substring(0, 4), 10);
+    const month = parseInt(datetimeStr.substring(4, 6), 10) - 1;
+    const day = parseInt(datetimeStr.substring(6, 8), 10);
+    const hour = parseInt(datetimeStr.substring(8, 10), 10);
+    const minute = parseInt(datetimeStr.substring(10, 12), 10);
+    const second = parseInt(datetimeStr.substring(12), 10);
+
+    const date = new Date(year, month, day, hour, minute, second);
+
+    return {
+      date: date.toLocaleDateString(),
+      time: date.toLocaleTimeString(),
+    };
   };
 
   const toggleSidebar = () => {
@@ -702,47 +742,54 @@ function Dashboard(props) {
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             <br />
-            <TableContainer component={Paper}>
-              <Table
-                aria-label="simple table"
-                style={{ border: "1px solid #f5f5f5" }}
-              >
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Line ID</TableCell>
-                    <TableCell align="right">Date</TableCell>
-                    <TableCell align="right">Time</TableCell>
-                    <TableCell align="right">Level</TableCell>
-                    <TableCell align="right">Process</TableCell>
-                    <TableCell align="right">Component</TableCell>
-                    <TableCell align="right">Content</TableCell>
-                    <TableCell align="right">Event ID</TableCell>
-                    <TableCell align="right">Event Template</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {logs.map((log, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                      style={{ background: getColorByLogLevel(log.Level) }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {log.LineId}
-                      </TableCell>
-                      <TableCell align="right">{log.Date}</TableCell>
-                      <TableCell align="right">{log.Time}</TableCell>
-                      <TableCell align="right">{log.Level}</TableCell>
-                      <TableCell align="right">{log.Process}</TableCell>
-                      <TableCell align="right">{log.Component}</TableCell>
-                      <TableCell align="right">{log.Content}</TableCell>
-                      <TableCell align="right">{log.EventId}</TableCell>
-                      <TableCell align="right">{log.EventTemplate}</TableCell>
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <TableContainer component={Paper}>
+                <Table
+                  aria-label="simple table"
+                  style={{ border: "1px solid #f5f5f5" }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Log ID</TableCell>
+                      <TableCell align="right">Message ID</TableCell>
+                      <TableCell align="right">Timesatmp</TableCell>
+                      <TableCell align="right">Priority</TableCell>
+                      <TableCell align="right">Syslog Identifier</TableCell>
+                      <TableCell align="right">Message</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {logs.map((log, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                        style={{ background: getColorByLogLevel(log.Level) }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {log._PID}
+                        </TableCell>
+                        <TableCell align="right">{log.MESSAGE_ID}</TableCell>
+                        <TableCell align="right">
+                          {
+                            convertToTimestamp(log._SOURCE_REALTIME_TIMESTAMP)
+                              .time
+                          }
+                        </TableCell>
+                        <TableCell align="right">{log.PRIORITY}</TableCell>
+                        <TableCell align="right">
+                          {log.SYSLOG_IDENTIFIER}
+                        </TableCell>
+                        <TableCell align="right">{log.MESSAGE}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
             <br />
           </Grid>
         </Grid>
