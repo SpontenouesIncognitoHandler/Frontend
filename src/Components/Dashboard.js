@@ -19,6 +19,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  TableContainer,
+  Table,
+  TableHead,
 } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -270,32 +273,20 @@ const logTypesChartData = [
   {
     id: "info",
     label: "Info",
-    value: 120,
+    value: 6,
     color: "hsl(210, 70%, 50%)",
   },
   {
     id: "warning",
     label: "Warning",
-    value: 80,
+    value: 10,
     color: "hsl(40, 70%, 50%)",
   },
   {
     id: "error",
     label: "Error",
-    value: 90,
+    value: 2,
     color: "hsl(0, 70%, 50%)",
-  },
-  {
-    id: "debug",
-    label: "Debug",
-    value: 100,
-    color: "hsl(120, 70%, 50%)",
-  },
-  {
-    id: "fatal",
-    label: "Fatal",
-    value: 30,
-    color: "hsl(300, 70%, 50%)",
   },
 ];
 
@@ -351,18 +342,6 @@ const MyLogTypesChart = ({ data }) => (
       {
         match: {
           id: "error",
-        },
-        id: "lines",
-      },
-      {
-        match: {
-          id: "debug",
-        },
-        id: "dots",
-      },
-      {
-        match: {
-          id: "fatal",
         },
         id: "lines",
       },
@@ -497,11 +476,11 @@ function Dashboard(props) {
   function getColorByLogLevel(level) {
     switch (level) {
       case "INFO":
-        return "green";
+        return "#beebca";
       case "WARN":
-        return "yellow";
+        return "#feed79";
       case "ERROR":
-        return "red";
+        return "#ffb1ce";
       default:
         return "white";
     }
@@ -589,51 +568,20 @@ function Dashboard(props) {
           style={{ padding: "4%" }}
         >
           <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="Total Logs" value="10,000" description="This Month" />
+            <Kpi title="Total Logs" value="8,347" description="This Month" />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="CPU Usage" value="20% ￪" description="This Month" />
+            <Kpi title="CPU Usage" value="23.7% ￪" description="This Month" />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="Server Load" value="10% ￪" description="This Month" />
+            <Kpi title="Server Load" value="7.33% ￪" description="This Month" />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Kpi title="Memory Usage" value="5% ￪" description="This Month" />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12}>
-            <table border="1" style={{ width: "100%" }}>
-              <thead>
-                <tr>
-                  <th>Line ID</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Level</th>
-                  <th>Process</th>
-                  <th>Component</th>
-                  <th>Content</th>
-                  <th>Event ID</th>
-                  <th>Event Template</th>
-                </tr>
-              </thead>
-              <tbody>
-                {logs.map((log, index) => (
-                  <tr
-                    key={index}
-                    style={{ background: getColorByLogLevel(log.Level) }}
-                  >
-                    <td>{log.LineId}</td>
-                    <td>{log.Date}</td>
-                    <td>{log.Time}</td>
-                    <td>{log.Level}</td>
-                    <td>{log.Process}</td>
-                    <td>{log.Component}</td>
-                    <td>{log.Content}</td>
-                    <td>{log.EventId}</td>
-                    <td>{log.EventTemplate}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <Kpi
+              title="Memory Usage"
+              value="3.25% ￪"
+              description="This Month"
+            />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <Card
@@ -695,7 +643,7 @@ function Dashboard(props) {
                 }}
               >
                 <Typography variant="h7" component="h7">
-                  Log Types Chart
+                  CPU Usage Chart
                 </Typography>
                 <div>
                   <IconButton
@@ -716,6 +664,51 @@ function Dashboard(props) {
                 <MyCpuUsageLine data={cpuUsageData} />
               </div>
             </Card>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12}>
+            <br />
+            <TableContainer component={Paper}>
+              <Table
+                aria-label="simple table"
+                style={{ border: "1px solid #f5f5f5" }}
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Line ID</TableCell>
+                    <TableCell align="right">Date</TableCell>
+                    <TableCell align="right">Time</TableCell>
+                    <TableCell align="right">Level</TableCell>
+                    <TableCell align="right">Process</TableCell>
+                    <TableCell align="right">Component</TableCell>
+                    <TableCell align="right">Content</TableCell>
+                    <TableCell align="right">Event ID</TableCell>
+                    <TableCell align="right">Event Template</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {logs.map((log, index) => (
+                    <TableRow
+                      key={index}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      style={{ background: getColorByLogLevel(log.Level) }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {log.LineId}
+                      </TableCell>
+                      <TableCell align="right">{log.Date}</TableCell>
+                      <TableCell align="right">{log.Time}</TableCell>
+                      <TableCell align="right">{log.Level}</TableCell>
+                      <TableCell align="right">{log.Process}</TableCell>
+                      <TableCell align="right">{log.Component}</TableCell>
+                      <TableCell align="right">{log.Content}</TableCell>
+                      <TableCell align="right">{log.EventId}</TableCell>
+                      <TableCell align="right">{log.EventTemplate}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <br />
           </Grid>
         </Grid>
         <br />
