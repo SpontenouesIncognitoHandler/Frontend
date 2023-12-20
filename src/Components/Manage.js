@@ -16,6 +16,9 @@ import {
   Paper,
   CardActions,
   Button,
+  TableBody,
+  TableRow,
+  TableCell,
 } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -27,6 +30,241 @@ import { ResponsiveLine } from "@nivo/line";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import CloseIcon from "@mui/icons-material/Close";
 import DownloadIcon from "@mui/icons-material/Download";
+
+const logs = [
+  {
+    LineId: 843,
+    Date: "18-10-2015",
+    Time: "18:04:57,443",
+    Level: "INFO",
+    Process: "IPC Server handler 14 on 62270",
+    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+    Content:
+      "Progress of TaskAttempt attempt_1445144423722_0020_m_000007_0 is : 0.3707891",
+    EventId: "E80",
+    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+  },
+  {
+    LineId: 844,
+    Date: "18-10-2015",
+    Time: "18:04:59,771",
+    Level: "INFO",
+    Process: "IPC Server handler 0 on 62270",
+    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+    Content:
+      "Progress of TaskAttempt attempt_1445144423722_0020_m_000001_0 is : 0.37551183",
+    EventId: "E80",
+    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+  },
+  {
+    LineId: 845,
+    Date: "18-10-2015",
+    Time: "18:04:59,787",
+    Level: "INFO",
+    Process: "IPC Server handler 10 on 62270",
+    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+    Content:
+      "Progress of TaskAttempt attempt_1445144423722_0020_m_000002_0 is : 0.38137424",
+    EventId: "E80",
+    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+  },
+  {
+    LineId: 846,
+    Date: "18-10-2015",
+    Time: "18:05:02,802",
+    Level: "INFO",
+    Process: "IPC Server handler 10 on 62270",
+    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+    Content:
+      "Progress of TaskAttempt attempt_1445144423722_0020_m_000001_0 is : 0.37551183",
+    EventId: "E80",
+    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+  },
+  {
+    LineId: 847,
+    Date: "18-10-2015",
+    Time: "18:05:02,818",
+    Level: "INFO",
+    Process: "IPC Server handler 4 on 62270",
+    Component: "org.apache.hadoop.mapred.TaskAttemptListenerImpl",
+    Content:
+      "Progress of TaskAttempt attempt_1445144423722_0020_m_000002_0 is : 0.38137424",
+    EventId: "E80",
+    EventTemplate: "Progress of TaskAttempt attempt_<*> is : <*>.<*>",
+  },
+  {
+    LineId: 848,
+    Date: "18-10-2015",
+    Time: "18:05:27,570",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.ipc.Client",
+    Content:
+      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+    EventId: "E10",
+    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+  },
+  {
+    LineId: 849,
+    Date: "18-10-2015",
+    Time: "18:05:27,570",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+    Content:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 30 seconds.  Will retry shortly ...",
+    EventId: "E44",
+    EventTemplate:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+  },
+  {
+    LineId: 850,
+    Date: "18-10-2015",
+    Time: "18:05:28,570",
+    Level: "c",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.ipc.Client",
+    Content:
+      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+    EventId: "E10",
+    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+  },
+  {
+    LineId: 851,
+    Date: "18-10-2015",
+    Time: "18:05:28,570",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+    Content:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 31 seconds.  Will retry shortly ...",
+    EventId: "E44",
+    EventTemplate:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+  },
+  {
+    LineId: 852,
+    Date: "18-10-2015",
+    Time: "18:05:29,570",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.ipc.Client",
+    Content:
+      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+    EventId: "E10",
+    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+  },
+  {
+    LineId: 853,
+    Date: "18-10-2015",
+    Time: "18:05:29,570",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+    Content:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 32 seconds.  Will retry shortly ...",
+    EventId: "E44",
+    EventTemplate:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+  },
+  {
+    LineId: 1978,
+    Date: "18-10-2015",
+    Time: "18:10:48,545",
+    Level: "ERROR",
+    Process: "RMCommunicator Allocator",
+    Component: "org.apache.hadoop.mapreduce.v2.app.rm.RMContainerAllocator",
+    Content: "ERROR IN CONTACTING RM.",
+    EventId: "E38",
+    EventTemplate: "ERROR IN CONTACTING RM.",
+  },
+  {
+    LineId: 1979,
+    Date: "18-10-2015",
+    Time: "18:10:49,139",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.ipc.Client",
+    Content:
+      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+    EventId: "E10",
+    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+  },
+  {
+    LineId: 1980,
+    Date: "18-10-2015",
+    Time: "18:10:49,139",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+    Content:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 351 seconds.  Will retry shortly ...",
+    EventId: "E44",
+    EventTemplate:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+  },
+  {
+    LineId: 1981,
+    Date: "18-10-2015",
+    Time: "18:10:49,545",
+    Level: "WARN",
+    Process: "RMCommunicator Allocator",
+    Component: "org.apache.hadoop.ipc.Client",
+    Content:
+      "Address change detected. Old: msra-sa-41/10.190.173.170:8030 New: msra-sa-41:8030",
+    EventId: "E10",
+    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+  },
+  {
+    LineId: 1982,
+    Date: "18-10-2015",
+    Time: "18:10:50,155",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.ipc.Client",
+    Content:
+      "Address change detected. Old: msra-sa-41/10.190.173.170:9000 New: msra-sa-41:9000",
+    EventId: "E10",
+    EventTemplate: "Address change detected. Old: <*>/<*>:<*> New: <*>:<*>",
+  },
+  {
+    LineId: 1983,
+    Date: "18-10-2015",
+    Time: "18:10:50,155",
+    Level: "WARN",
+    Process: "LeaseRenewer:msrabi@msra-sa-41:9000",
+    Component: "org.apache.hadoop.hdfs.LeaseRenewer",
+    Content:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_1537864556_1] for 352 seconds.  Will retry shortly ...",
+    EventId: "E44",
+    EventTemplate:
+      "Failed to renew lease for [DFSClient_NONMAPREDUCE_<*>_<*>] for <*> seconds.  Will retry shortly ...",
+  },
+  {
+    LineId: 1984,
+    Date: "18-10-2015",
+    Time: "18:10:50,545",
+    Level: "INFO",
+    Process: "RMCommunicator Allocator",
+    Component: "org.apache.hadoop.ipc.Client",
+    Content:
+      "Retrying connect to server: msra-sa-41:8030. Already tried 0 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)",
+    EventId: "E91",
+    EventTemplate:
+      "Retrying connect to server: <*>:<*>. Already tried <*> time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=<*>, sleepTime=<*> MILLISECONDS)",
+  },
+  {
+    LineId: 1985,
+    Date: "18-10-2015",
+    Time: "18:10:50,545",
+    Level: "ERROR",
+    Process: "RMCommunicator Allocator",
+    Component: "org.apache.hadoop.mapreduce.v2.app.rm.RMContainerAllocator",
+    Content: "ERROR IN CONTACTING RM.",
+    EventId: "E38",
+    EventTemplate: "ERROR IN CONTACTING RM.",
+  },
+];
 
 const logTypesChartData = [
   {
@@ -256,6 +494,19 @@ function Manage(props) {
   const [collapsed, setCollapsed] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
 
+  function getColorByLogLevel(level) {
+    switch (level) {
+      case "INFO":
+        return "green";
+      case "WARN":
+        return "yellow";
+      case "ERROR":
+        return "red";
+      default:
+        return "white";
+    }
+  }
+
   const handleFullScreenClick = (chartId) => {
     const chartElement = document.getElementById(chartId);
 
@@ -348,6 +599,41 @@ function Manage(props) {
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <Kpi title="Memory Usage" value="5% ￪" description="This Month" />
+          </Grid>
+          <Grid item xs={12} sm={12} md={12}>
+            <table border="1" style={{width:"100%"}}>
+              <thead>
+                <tr>
+                  <th>Line ID</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Level</th>
+                  <th>Process</th>
+                  <th>Component</th>
+                  <th>Content</th>
+                  <th>Event ID</th>
+                  <th>Event Template</th>
+                </tr>
+              </thead>
+              <tbody>
+                {logs.map((log, index) => (
+                  <tr
+                    key={index}
+                    style={{ background: getColorByLogLevel(log.Level) }}
+                  >
+                    <td>{log.LineId}</td>
+                    <td>{log.Date}</td>
+                    <td>{log.Time}</td>
+                    <td>{log.Level}</td>
+                    <td>{log.Process}</td>
+                    <td>{log.Component}</td>
+                    <td>{log.Content}</td>
+                    <td>{log.EventId}</td>
+                    <td>{log.EventTemplate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <Card
