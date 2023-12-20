@@ -26,7 +26,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://3f30-14-139-208-67.ngrok-free.app/api/v1/user/getToken",
+        "https://896b-14-139-208-67.ngrok-free.app/api/v1/user/getToken",
         data
       );
       const { org_id, token, user_id, user_name } = response.data.data;

@@ -335,9 +335,9 @@ function Dashboard(props) {
           const priority = log.PRIORITY;
           if (priority >= 0 && priority <= 3) {
             errorCount++;
-          } else if (priority >= 4 && priority <= 5) {
+          } else if (priority == 4) {
             warningCount++;
-          } else if (priority >= 6 && priority <= 7) {
+          } else if (priority >= 5 && priority <= 7) {
             infoCount++;
           }
         });
@@ -375,7 +375,7 @@ function Dashboard(props) {
     fetchData();
     const interval = setInterval(() => {
       fetchData();
-    }, 90000);
+    }, 30000);
     return () => {
       clearInterval(interval);
     };
@@ -481,18 +481,10 @@ function Dashboard(props) {
   };
 
   const convertToTimestamp = (datetimeStr) => {
-    const year = parseInt(datetimeStr.substring(0, 4), 10);
-    const month = parseInt(datetimeStr.substring(4, 6), 10) - 1;
-    const day = parseInt(datetimeStr.substring(6, 8), 10);
-    const hour = parseInt(datetimeStr.substring(8, 10), 10);
-    const minute = parseInt(datetimeStr.substring(10, 12), 10);
-    const second = parseInt(datetimeStr.substring(12), 10);
-
-    const date = new Date(year, month, day, hour, minute, second);
-
+    
     return {
-      date: date.toLocaleDateString(),
-      time: date.toLocaleTimeString(),
+      date: new Date(datetimeStr/1000).toLocaleDateString("en-US"),
+      time: new Date(datetimeStr/1000).toLocaleTimeString("en-US"),
     };
   };
 
@@ -501,9 +493,9 @@ function Dashboard(props) {
   };
 
   const getColorByPriority = (priority) => {
-    if (priority >= 6) {
+    if (priority >= 5) {
       return "#beebca";
-    } else if (priority >= 4 && priority <= 5) {
+    } else if (priority == 4) {
       return "#feed79";
     } else if (priority <= 3) {
       return "#ffb1ce";
@@ -653,7 +645,8 @@ function Dashboard(props) {
                     <TableRow>
                       <TableCell>Log ID</TableCell>
                       <TableCell align="right">Message ID</TableCell>
-                      <TableCell align="right">Timesatmp</TableCell>
+                      <TableCell align="right">Date</TableCell>
+                      <TableCell align="right">Time</TableCell>
                       <TableCell align="right">Priority</TableCell>
                       <TableCell align="right">Syslog Identifier</TableCell>
                       <TableCell align="right">Message</TableCell>
@@ -672,6 +665,12 @@ function Dashboard(props) {
                           {log._PID}
                         </TableCell>
                         <TableCell align="right">{log.MESSAGE_ID}</TableCell>
+                        <TableCell align="right">
+                          {
+                            convertToTimestamp(log._SOURCE_REALTIME_TIMESTAMP)
+                              .date
+                          }
+                        </TableCell>
                         <TableCell align="right">
                           {
                             convertToTimestamp(log._SOURCE_REALTIME_TIMESTAMP)
